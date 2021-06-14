@@ -1,0 +1,56 @@
+<div class="row">
+    <div>
+        <input type="text" [(ngModel)]="textSimple">
+        <p>{{textSimple}}</p>
+    </div>
+    <div class=" col-sm-6 " *ngIf=" profesorSeleccionado ">
+        <div class="row">
+            <div class="me-auto">
+                <app-titulo [titulo]="'Profesor: ' + profesorSeleccionado.id"></app-titulo>
+            </div>
+            <div class="mt-1 ">
+                <button class="btn btn-sm btn-outline-danger " (click)="volver() ">Cerrar</button>
+            </div>
+        </div>
+        <form [formGroup]="profesorForm" (ngSubmit)="profesorSubmit()">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" formControlName="nombre">
+            </div>
+            <div class="mb-3 ">
+                <label for="asignatura " class="form-label ">Apellido</label>
+                <input type="text " class="form-control " id="asignatura " aria-describedby="emailHelp " formControlName="apellido">
+            </div>
+            <button class="btn btn-sm btn-outline-success" [disabled]="!profesorForm.valid">Enviar</button>
+        </form>
+    </div>
+    <div [ngClass]="{ 'col-sm-6':profesorSeleccionado, 'col-sm-12':!profesorSeleccionado}">
+        <app-titulo [titulo]="titulo "></app-titulo>
+        <table class="table table-hover ">
+            <thead class="table-dark ">
+                <tr>
+                    <th>VISUALIZAR</th>
+                    <th>#</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prof of profesores ">
+                    <td><button (click)="profesorSelect(prof)" class="btn btn-sm btn-outline-warning">Detalle</button></td>
+                    <th scope="row ">{{prof.id}}</th>
+                    <td>{{prof.nombre}}</td>
+                    <td>{{prof.apellido}}</td>
+                    <td>
+                        <div class="btn-group">
+
+                            <button class="btn btn-sm btn btn-outline-primary">Editar</button>
+                            <button class="btn btn-sm btn btn-outline-danger">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

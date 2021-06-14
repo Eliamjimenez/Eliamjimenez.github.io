@@ -1,0 +1,66 @@
+<div class="row">
+    <div>
+        <input type="text" [(ngModel)]="textSimple">
+        <p>{{textSimple}}</p>
+    </div>
+    <div class=" col-sm-6 " *ngIf=" alumnoSeleccionado ">
+        <div class="row ">
+            <div class="me-auto ">
+                <app-titulo [titulo]=" 'Cod. Alumno: ' + alumnoSeleccionado.id "></app-titulo>
+            </div>
+            <div class="mt-1 ">
+                <button class="btn btn-sm btn-outline-danger " (click)="volver() ">Cerrar</button>
+            </div>
+        </div>
+        <form [formGroup]="alumnoForm" (ngSubmit)="alumnoSubmit()">
+            <div class=" mb-3 ">
+                <label for="exampleInputEmail1 " class="form-label ">Nombre</label>
+                <input type="text " class="form-control " id="nombre " aria-describedby="emailHelp " formControlName="nombre">
+            </div>
+            <div class="mb-3 ">
+                <label for="exampleInputEmail1 " class="form-label ">Apellido</label>
+                <input type="text " class="form-control " id="apellido " aria-describedby="emailHelp " formControlName="apellido">
+            </div>
+            <div class="mb-3 ">
+                <label for="exampleInputEmail1 " class="form-label ">Telefono</label>
+                <input type="text " class="form-control " id="telefono " aria-describedby="emailHelp " formControlName="telefono">
+            </div>
+            <div class="form-group ">
+                <hr>
+                <button class="btn btn-sm btn-outline-success" [disabled]="!alumnoForm.valid">Enviar</button>
+            </div>
+
+        </form>
+    </div>
+    <div [ngClass]="{ 'col-sm-6':alumnoSeleccionado, 'col-sm-12':!alumnoSeleccionado} ">
+        <app-titulo [titulo]="titulo "></app-titulo>
+        <table class="table table-hover ">
+            <thead class="table-dark ">
+                <tr>
+                    <th>VISUALIZAR</th>
+                    <th>#</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>TELEFONO</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let alumno of alumnos ">
+                    <td><button (click)="alumnoSelect(alumno)" class="btn btn-sm btn-outline-warning">Detalle</button></td>
+                    <th scope="row ">{{alumno.id}}</th>
+                    <td>{{alumno.nombre}}</td>
+                    <td>{{alumno.apellido}}</td>
+                    <td>{{alumno.telefono}}</td>
+                    <td>
+                        <div class="btn-group">
+
+                            <button class="btn btn-sm btn btn-outline-primary">Profesores</button>
+                            <button class="btn btn-sm btn btn-outline-danger">Desactivar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
